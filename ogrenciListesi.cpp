@@ -25,16 +25,23 @@ void ogrenciListesi::ekle(string adi, string soyadi, string ogrNo, string dersKo
 	ogrenci* ogr = ogrenciBul(yeni->ogrno);
 	if(ogr)
 	{
-		struct ders* tara = ogr->dersdugumu;
-		while (tara)
+		struct ders* tara = ogr->dersdugumu,*onceki=nullptr;
+		if (strcmp(ders->derskodu, tara->derskodu) < 0)
 		{
-			if(!tara->sonraki)
-			{
-				tara->sonraki = ders;
-				break;
-			}
+			ders->sonraki = ogr->dersdugumu;
+			ogr->dersdugumu = ders;
+			return;
+		}
+		while (tara && (strcmp(ders->derskodu, tara->derskodu) > 0))
+		{
+			onceki = tara;
 			tara = tara->sonraki;
 		}
+		if (tara)
+		{
+			ders->sonraki = tara;
+		}
+		onceki->sonraki = ders;
 		return;
 	}
 	dugumSayisi++;
