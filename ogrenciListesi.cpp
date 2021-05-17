@@ -25,7 +25,16 @@ void ogrenciListesi::ekle(string adi, string soyadi, string ogrNo, string dersKo
 	ogrenci* ogr = ogrenciBul(yeni->ogrno);
 	if(ogr)
 	{
-		ogr->dersdugumu->sonraki = ders;
+		struct ders* tara = ogr->dersdugumu;
+		while (tara)
+		{
+			if(!tara->sonraki)
+			{
+				tara->sonraki = ders;
+				break;
+			}
+			tara = tara->sonraki;
+		}
 		return;
 	}
 	dugumSayisi++;
@@ -230,7 +239,7 @@ void ogrenciListesi::ara()
 				ders = tara->dersdugumu;
 				while (ders)
 				{
-					cout << " " << tara->dersdugumu->derskodu << " " << tara->dersdugumu->dersadi;
+					cout << " " << ders->derskodu << " " << ders->dersadi;
 					ders = ders->sonraki;
 				}
 				cout << "\n";
@@ -255,7 +264,7 @@ void ogrenciListesi::ara()
 				ders = tara->dersdugumu;
 				while (ders)
 				{
-					cout << " " << tara->dersdugumu->derskodu << " " << tara->dersdugumu->dersadi;
+					cout << " " << ders->derskodu << " " << ders->dersadi;
 					ders = ders->sonraki;
 				}
 				cout << "\n";

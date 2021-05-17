@@ -14,9 +14,10 @@ int main()
 	string fizDosya =anadosya+ "fiz101.txt";
 	string engDosya =anadosya+ "eng101.txt";
 	ogrenciler.olustur();
-	ogrenciler.listeKur(matDosya);
+	
 	ogrenciler.listeKur(fizDosya);
 	ogrenciler.listeKur(engDosya);
+	ogrenciler.listeKur(matDosya);
 	islemMenusu();
 	ogrenciler.kapat();
 	
