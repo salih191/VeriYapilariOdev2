@@ -25,6 +25,7 @@ void ogrenciListesi::ekle(string adi, string soyadi, string ogrNo, string dersKo
 	ogrenci* ogr = ogrenciBul(yeni->ogrno);
 	if(ogr)
 	{
+		delete yeni;
 		struct ders* tara = ogr->dersdugumu,*onceki=nullptr;
 		if (strcmp(ders->derskodu, tara->derskodu) < 0)
 		{
@@ -238,22 +239,18 @@ void ogrenciListesi::ara()
 		cout << "Ogrenci Numarasi:";
 		char ogrno[15];
 		cin >> ogrno;
-		while (tara)
+		ogrenci* ogr = ogrenciBul(ogrno);
+		if(ogr)
 		{
-			if (strcmp(tara->ogrno, ogrno) == 0)
+			cout << ogr->ogrno << " " << ogr->ad << " " << ogr->soyad;
+			ders = ogr->dersdugumu;
+			while (ders)
 			{
-				cout << tara->ogrno << " " << tara->ad << " " << tara->soyad;
-				ders = tara->dersdugumu;
-				while (ders)
-				{
-					cout << " " << ders->derskodu << " " << ders->dersadi;
-					ders = ders->sonraki;
-				}
-				cout << "\n";
-				tara = tara->sonraki;
-				return;
+				cout << " " << ders->derskodu << " " << ders->dersadi;
+				ders = ders->sonraki;
 			}
-			tara = tara->sonraki;
+			cout << "\n";
+			return;
 		}
 		cout << "Ogrenci bulunamadi\n";
 		
